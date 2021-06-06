@@ -6,6 +6,7 @@ unordered_map<string, sf::Texture> TextureManager::textures;
 
 int main() {
     //getting the data from the CFG file to load a board's size and data
+    bool firstClick = true;
 
     string width, height, mines;
     unsigned int boardHeight = 0;
@@ -50,6 +51,7 @@ int main() {
                     if (board.isDebugging()) {
                         board.debugBoard();
                     }
+                    firstClick = true;
                 }
                 if ((event.mouseButton.x >= ((boardWidth * 32) / 2 + 160)) & (event.mouseButton.x <= (boardWidth * 32) / 2 + 224)
                     & (event.mouseButton.y >= (boardHeight * 32)) & (event.mouseButton.y <= (boardHeight * 32 + 64))) {
@@ -77,6 +79,19 @@ int main() {
                             if ((event.mouseButton.x >= tiles->at(i).at(j).getX()) & (event.mouseButton.y >= tiles->at(i).at(j).getY())) {
                                 if ((event.mouseButton.x < tiles->at(i).at(j).getX() + 32) & (event.mouseButton.y < tiles->at(i).at(j).getY() + 32)
                                     & !(tiles->at(i).at(j).checkFlag())) {
+                                    while (firstClick) {
+                                        if (tiles->at(i).at(j).checkMine()) {
+                                            board.reset();
+                                            board.distributeMines(boardMines);
+                                            board.setAdjacents();
+                                            if (board.isDebugging()) {
+                                                board.debugBoard();
+                                            }
+                                        }
+                                        else {
+                                            firstClick = false;
+                                        }
+                                    }
 
                                     if (tiles->at(i).at(j).checkBlank() == true) {
                                         board.recursiveReveal(i, j);
