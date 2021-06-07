@@ -79,8 +79,10 @@ int main() {
                             if ((event.mouseButton.x >= tiles->at(i).at(j).getX()) & (event.mouseButton.y >= tiles->at(i).at(j).getY())) {
                                 if ((event.mouseButton.x < tiles->at(i).at(j).getX() + 32) & (event.mouseButton.y < tiles->at(i).at(j).getY() + 32)
                                     & !(tiles->at(i).at(j).checkFlag())) {
+
+                                    /*NEW CODE*/ /*Allows the program to redistribute mines until the first click is no longer a mine*/
                                     while (firstClick) {
-                                        if (tiles->at(i).at(j).checkMine()) {
+                                        if ((tiles->at(i).at(j).checkMine()) || (!tiles->at(i).at(j).checkBlank())) {
                                             board.reset();
                                             board.distributeMines(boardMines);
                                             board.setAdjacents();
@@ -92,6 +94,7 @@ int main() {
                                             firstClick = false;
                                         }
                                     }
+                                    
 
                                     if (tiles->at(i).at(j).checkBlank() == true) {
                                         board.recursiveReveal(i, j);
