@@ -1,4 +1,5 @@
 #include "tileandboard.h"
+//made by Skylar Stewart, 6/10/21
 
 std::mt19937 Random::random(time(0));
 using namespace std;
@@ -94,7 +95,6 @@ int main() {
                                             firstClick = false;
                                         }
                                     }
-                                    
 
                                     if (tiles->at(i).at(j).checkBlank() == true) {
                                         board.recursiveReveal(i, j);
