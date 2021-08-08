@@ -11,7 +11,7 @@
 #include <fstream>
 using namespace std;
 
-//random number generator class (taken from the videos by Prof. Fox)
+//random number generator class
 class Random {
 	static std::mt19937 random;
 public:
@@ -27,7 +27,7 @@ public:
 	}
 };
 
-//texture manager (taken from the videos by Prof. Fox)
+//texture manager
 class TextureManager {
 
 	static unordered_map<string, sf::Texture> textures;
