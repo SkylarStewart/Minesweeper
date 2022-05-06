@@ -77,9 +77,9 @@ int main() {
                 if (event.mouseButton.button == sf::Mouse::Left && !board.checkLock() & !board.checkLock()) {
                     for (int i = 0; i < tiles->size(); i++) {
                         for (int j = 0; j < tiles->at(i).size(); j++) {
-                            if ((event.mouseButton.x >= tiles->at(i).at(j).getX()) & (event.mouseButton.y >= tiles->at(i).at(j).getY())) {
-                                if ((event.mouseButton.x < tiles->at(i).at(j).getX() + 32) & (event.mouseButton.y < tiles->at(i).at(j).getY() + 32)
-                                    & !(tiles->at(i).at(j).checkFlag())) {
+                            if ((event.mouseButton.x >= tiles->at(i).at(j).getX()) & (event.mouseButton.y >= tiles->at(i).at(j).getY())
+                                && ((event.mouseButton.x < tiles->at(i).at(j).getX() + 32) & (event.mouseButton.y < tiles->at(i).at(j).getY() + 32)
+                                    & !(tiles->at(i).at(j).checkFlag()))) {
 
                                     /*NEW CODE*/ /*Allows the program to redistribute mines until the first click is no longer a mine*/
                                     while (firstClick) {
@@ -104,7 +104,6 @@ int main() {
                                         board.lose();
                                     }
 
-                                }
                             }
                         }
                     }
@@ -113,12 +112,15 @@ int main() {
                 /*event handling for clicking the right mouse button. this either places or removes a flag depending on the
                 * previous state of the tile, unlesss the tile is locked (in which case nothing happens).
                 */
+
+                //Disgusting if statements, will refactor later
                 if (event.mouseButton.button == sf::Mouse::Right) {
                     for (int i = 0; i < tiles->size(); i++) {
                         for (int j = 0; j < tiles->at(i).size(); j++) {
-                            if ((event.mouseButton.x >= tiles->at(i).at(j).getX()) & (event.mouseButton.y >= tiles->at(i).at(j).getY()) & (!board.checkLock())) {
-                                if ((event.mouseButton.x < tiles->at(i).at(j).getX() + 32) & (event.mouseButton.y < tiles->at(i).at(j).getY() + 32)) {
-                                    if (!(tiles->at(i).at(j).isRevealed())) {
+                            if ((event.mouseButton.x >= tiles->at(i).at(j).getX()) & (event.mouseButton.y >= tiles->at(i).at(j).getY()) & (!board.checkLock())
+                                && ((event.mouseButton.x < tiles->at(i).at(j).getX() + 32) & (event.mouseButton.y < tiles->at(i).at(j).getY() + 32))
+                                && !(tiles->at(i).at(j).isRevealed())) {
+
                                         if (tiles->at(i).at(j).checkFlag()) {
                                             tiles->at(i).at(j).removeFlag();
                                             board.minusFlag();
@@ -127,9 +129,9 @@ int main() {
                                             tiles->at(i).at(j).setFlag();
                                             board.plusFlag();
                                         }
-                                    }
 
-                                }
+
+                                
                             }
                         }
                     }
